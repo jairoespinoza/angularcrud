@@ -1,0 +1,65 @@
+<p-toast></p-toast>
+<div class="d-flex justify-content-center">
+    <p-card header="Nuevo Libro" [style]="{'width': '30rem', 'margin-bottom': '2em'}">
+        <div class="d-flex flex-column" [formGroup]="createLibro">
+            <div class="p-2">
+                <label>Título</label><br/>
+                <input type="text" pInputText formControlName="titulo" />
+            </div>
+            <div class="p-2">
+                <label>Descripción</label><br/>
+                <textarea rows="5" cols="30" pInputTextarea [autoResize]="autoResize" formControlName="descripcion"></textarea>
+            </div>
+            <div class="d-flex flex-row">
+                <div class="p-2">
+                    <label>Autor</label><br/>
+                    <input type="text" pInputText formControlName="idautor"/>
+                </div>
+                <div class="p-2">
+                    <p-button label="Nuevo Autor" (click)="showDialog()"></p-button>
+                </div>
+            </div>
+            <div class="d-flex flex-row">
+                <div class="p-2">
+                    <label>Publicado</label><br/>
+                    <p-checkbox [(ngModel)]="checked" [binary]="true" inputId="binary" formControlName="publicado"></p-checkbox>
+                </div>
+                <div class="p-2">
+                    <label>Año</label><br/>
+                    <input type="text" pInputText formControlName="anio"/>
+                </div>
+            </div>
+            <div class="d-flex flex-row">
+                <div class="p-2">
+                    <p-button label="Aceptar" (click)="agregaLibro()"></p-button>
+                </div>
+                <div class="p-2">
+                    <p-button label="Cancelar" (click)="cancelarLibro()"></p-button>
+                </div>
+            </div>
+          </div>
+    </p-card>
+</div>
+
+
+<p-dialog header="Nuevo Autor" [(visible)]="displayModal" [modal]="true" [style]="{width: '20vw'}" [breakpoints]="{'960px': '75vw'}"[closable]="false"
+    [draggable]="false" [resizable]="false">
+    <form [formGroup]="createAutor">
+        <div class="d-flex flex-column" >
+            <div class="p-2">
+                <label>Nombre</label><br/>
+                <input type="text" pInputText  formControlName="nombre" />
+            </div> 
+            <div class="p-2">
+                <label>Genero</label><br/>
+                <input type="text" pInputText formControlName="genero"/>
+            </div> 
+        </div>
+    
+    </form>
+
+        <ng-template pTemplate="footer">
+        <p-button (click)="agregarAutor()" label="Aceptar" styleClass="p-button-text"></p-button>
+        <p-button (click)="cerrarAutor()" label="Cancelar" styleClass="p-button-text"></p-button>
+        </ng-template>
+</p-dialog>

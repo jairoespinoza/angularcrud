@@ -1,0 +1,11 @@
+<p-sidebar [(visible)]="visibleSidebar1" [baseZIndex]="10000">
+    <h2>Menu</h2>
+    <div class="d-flex flex-column">
+        <div class="p-2" [routerLink]="['']" style="cursor: pointer;">Autores</div>
+        <div class="p-2" [routerLink]="['/libros']" style="cursor: pointer;">Libros</div>
+        <div class="p-2" [routerLink]="['/dashboard']" style="cursor: pointer;">Dashboard</div>
+    </div>
+</p-sidebar>
+
+
+<p-button type="button" class="mr-2" (click)="visibleSidebar1 = true" label="Menu"></p-button>

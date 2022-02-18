@@ -1,11 +1,2 @@
 <app-header></app-header>
-<ul>
-  <li class="text" *ngFor="let item of autores | async">
-    {{item.nombre}}
-    {{item.genero}}
-  </li>
-</ul>
-<h5>Basic</h5>
-<p-button label="Submit"></p-button>
-<p-button label="Disabled" [disabled]="true"></p-button>
-<p-button label="Link" styleClass="p-button-link"></p-button>
+<router-outlet></router-outlet>

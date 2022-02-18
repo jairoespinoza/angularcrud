@@ -9,9 +9,6 @@ import { Observable } from 'rxjs';
 })
 export class AppComponent {
   title = 'angularcrud';
-
-  autores: Observable<any[]>;
   constructor(firestore: AngularFirestore) {
-    this.autores = firestore.collection('autores').valueChanges();
   }
 }
