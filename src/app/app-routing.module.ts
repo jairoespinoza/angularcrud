@@ -31,6 +31,13 @@ export const AppRoutes: Routes = [
     }
   },
   {
+    path: 'editlibros/:id',
+    component: LibrosComponent,
+    data:{
+      heading: 'libros'
+    }
+  },
+  {
     path: 'dashboard',
     component: DashboardComponent,
     data:

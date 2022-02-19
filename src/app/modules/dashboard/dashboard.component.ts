@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { EChartsOption } from 'echarts';
+import { FirebaseService } from '../core/header/services/firebaseservice';
 
 @Component({
   selector: 'app-dashboard',
@@ -9,35 +10,82 @@ import { EChartsOption } from 'echarts';
 })
 export class DashboardComponent implements OnInit {
 
-  value2 :number= 25; 
+  cantidadPublicado : any ;
+  cantidadAutor: any;
+  mergeOptions: any;
 
-  constructor(private firestore : AngularFirestore) { }
+  constructor(private firestore : AngularFirestore, private _firebaseservice: FirebaseService) { }
 
   ngOnInit(): void {
     this.listaLibrosAnio();
+    this.cantidadPublicados();
+    this.cantidadAutores();
   }
-  
-  lstAnios:Array<any> = [];
-  listaLibrosAnio(){
-    this.firestore.collection('libros').valueChanges()
-    .subscribe( (res : any)  =>{
-      let anios
-      for (let index = 0; index < res.length; index++) {
-        if(res[index].anio != null){
-         anios = res[index].anio;
-        }
-        this.lstAnios.push(anios)
-      }
-      console.log(this.lstAnios)
+
+  libros : any[] = []
+  cantidadPublicados() {
+
+    this._firebaseservice.getLibros().subscribe(res =>{
+      this.libros = []
+      res.forEach((libro : any)=>{
+        this.libros.push({
+          id: libro.payload.doc.id,
+          ...libro.payload.doc.data() 
+        })
+      })
+      this.cantidadPublicado = this.libros.filter(libro => libro.publicado).length;
     })
   }
 
-  dias = ['Mon', 'Tue', 'Wed', 'Fri', 'Sat', 'Sun']
+  autores : any[] = []
+  cantidadAutores() {
+
+    this._firebaseservice.getAutores().subscribe(res =>{
+      this.autores = []
+      res.forEach((autor : any)=>{
+        this.autores.push({
+          id: autor.payload.doc.id,
+          ...autor.payload.doc.data() 
+        })
+      })
+      
+      this.cantidadAutor = this.autores.filter(autor => autor).length;
+    })
+  }
+
+
+  
+  lstAnios:Array<any> = []; 
+  lstCantidadLibros: Array<any> = [];
+  listaLibrosAnio(){
+    this.firestore.collection('libros').valueChanges()
+    .subscribe( (res : any)  =>{
+      
+      res.forEach((libro : any) => {
+        const anio = libro.anio;
+
+        const anioEncontrado = this.lstAnios.findIndex(anioEnArreglo => anioEnArreglo == anio);
+
+        if(anioEncontrado == -1) {
+          this.lstAnios.push(anio);
+          this.lstCantidadLibros[this.lstAnios.length - 1] = 1;
+        } else {
+          const cantidadLibros = this.lstCantidadLibros[anioEncontrado];
+
+          this.lstCantidadLibros[anioEncontrado] = cantidadLibros + 1;
+        }
+      });
+
+      this.mergeOptions = { xAxis: [{ data : this.lstAnios }], series: [{data: this.lstCantidadLibros}] };
+    })
+  }
+
+
 
   options:EChartsOption = {
     xAxis: {
       type: 'category',
-      data: this.dias
+      data: this.lstAnios
     },
     yAxis: {
       type: 'value'

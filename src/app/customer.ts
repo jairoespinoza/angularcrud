@@ -8,6 +8,8 @@ export class Representative {
     image?: string;
 }
 
+
+
 export class Customer {
     id?: number;
     name?: number;

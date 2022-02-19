@@ -22,4 +22,20 @@ export class FirebaseService {
         return this.firestore.collection('libros').add(libros);
     }
 
+    getLibros(): Observable<any>{
+        return this.firestore.collection('libros').snapshotChanges();
+    }
+
+    eliminarLibro(id:string){
+        return this.firestore.collection('libros').doc(id).delete();
+    }
+
+    getLibro(id:string) : Observable<any>{
+        return this.firestore.collection('libros').doc(id).snapshotChanges();
+    }
+
+    editarLibro(id:string, data:any): Promise<any>{
+        return this.firestore.collection('libros').doc(id).update(data);
+    }
+
 }

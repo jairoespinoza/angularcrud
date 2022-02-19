@@ -1,8 +1,8 @@
 <div class="card-body">
-    <p-table #dt [value]="customers" [(selection)]="selectedCustomers" dataKey="id" styleClass="p-datatable-customers" [rowHover]="true"
+    <p-table #dt [value]="libros" dataKey="id" styleClass="p-datatable-customers" [rowHover]="true"
     [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]" [loading]="loading" responsiveLayout="scroll"
     [paginator]="true" currentPageReportTemplate="{first} hasta {last} de {totalRecords} autores"
-    [filterDelay]="0" [globalFilterFields]="['name','country.name','representative.name','status']">
+    [filterDelay]="0" [globalFilterFields]="['titulo','descripcion','anio','autor']">
     <ng-template pTemplate="caption">
         <div class="table-header">
             Lista Autores
@@ -11,56 +11,82 @@
                 <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Buscar" />
                 <i class="pi pi-search"></i>
             </span>
-            <p-button style="float: right;" label="Nuevo" [routerLink]="['/libros']"></p-button>
+            <p-button class="derecha" label="Nuevo" [routerLink]="['/libros']"></p-button>
         </div>
     </ng-template>
     <ng-template pTemplate="header">
         <tr>
-            <th pSortableColumn="name">
+            <th pSortableColumn="titulo">
                 <div class="flex justify-content-between align-items-center">
-                    Name
-                    <p-sortIcon field="name"></p-sortIcon>
+                    Título
+                    <p-sortIcon field="titulo"></p-sortIcon>
                 </div>
             </th>
-            <th pSortableColumn="country.name">
+            <th pSortableColumn="descripcion">
                 <div class="flex justify-content-between align-items-center">
-                    Country
-                    <p-sortIcon field="name"></p-sortIcon>
+                    Descripción
+                    <p-sortIcon field="descripcion"></p-sortIcon>
                 </div>
             </th>
-            <th pSortableColumn="representative.name">
+            <th pSortableColumn="anio">
                 <div class="flex justify-content-between align-items-center">
-                    Agent
-                    <p-sortIcon field="name"></p-sortIcon>
+                    Año
+                    <p-sortIcon field="anio"></p-sortIcon>
                 </div>
             </th>
-            <th pSortableColumn="date">
+            <th pSortableColumn="nombreAutor">
                 <div class="flex justify-content-between align-items-center">
-                    Date
-                    <p-sortIcon field="name"></p-sortIcon>
+                    Autor
+                    <p-sortIcon field="nombreAutor"></p-sortIcon>
+                </div>
+            </th>
+            <th pSortableColumn="publicado">
+                <div class="flex justify-content-between align-items-center">
+                    Publicado
+                    <p-sortIcon field="publicado"></p-sortIcon>
+                </div>
+            </th>
+            <th>
+                <div class="flex justify-content-between align-items-center">
+                    Acción
                 </div>
             </th>
         </tr>
     </ng-template>
-    <ng-template pTemplate="body" let-customer>
+    <ng-template pTemplate="body" let-libros>
         <tr class="p-selectable-row">
             <td>
-                <span class="p-column-title">Name</span>
-                {{customer.name}}
+                <span class="p-column-title">Título</span>
+                {{libros.titulo}}
             </td>
             <td>
-                <span class="p-column-title">Country</span>
+                <span class="p-column-title">Descripción</span>
                 
-                <span class="image-text">{{customer.country.name}}</span>
+                <span class="image-text">{{libros.descripcion}}</span>
             </td>
             <td>
-                <span class="p-column-title">Representative</span>
+                <span class="p-column-title">Año</span>
                 
-                <span class="image-text">{{customer.representative.name}}</span>
+                <span class="image-text">{{libros.anio}}</span>
             </td>
             <td>
-                <span class="p-column-title">Date</span>
-                {{customer.date | date: 'MM/dd/yyyy'}}
+                <span class="p-column-title">Autor</span>
+                <span class="image-text">{{libros.nombreAutor}}</span>
+            </td>
+            <td>
+                <span class="p-column-title">Publicado</span>
+                <span class="image-text">{{libros.publicado ? 'si' : 'no'}}</span>
+            </td>
+            <td>
+                <span class="p-column-title">Acción</span>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <button pButton pRipple label="Editar" icon="pi pi-pencil" [routerLink]="['/editlibros/',libros.id]"></button>
+                        </div>
+                        <div class="col-md-6">
+                            <button pButton pRipple label="Borrar" (click)="openModal(libros.id)" icon="pi pi-trash"></button>
+                        </div>
+                    </div>
             </td>
         </tr>
     </ng-template>
@@ -73,3 +99,21 @@
 </p-table>
 
 </div>
+
+<p-dialog header="Eliminar Libro" [(visible)]="displayModal" [modal]="true" [style]="{width: '25vw'}" [breakpoints]="{'960px': '75vw'}"[closable]="false"
+    [draggable]="false" [resizable]="false">
+        <p>
+            ¿Esta seguro de eliminar el libro?
+        </p>
+
+        <ng-template pTemplate="footer">
+            <div class="d-flex flex-row">
+                <div class="p-2">
+                    <p-button (click)="eliminarLibro()" label="Aceptar" styleClass="p-button-text"></p-button>
+                </div>
+                <div class="p-2">
+                    <p-button (click)="displayModal =false" label="Cancelar" styleClass="p-button-text"></p-button>
+                </div>
+              </div>
+        </ng-template>
+</p-dialog>
