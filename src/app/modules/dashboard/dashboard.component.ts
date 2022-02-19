@@ -97,7 +97,8 @@ export class DashboardComponent implements OnInit {
         type: 'bar',
         showBackground: true,
         backgroundStyle: {
-          color: 'rgba(180, 180, 180, 0.2)'
+          color: 'rgba(180, 180, 180, 0.2)',
+          
         }
       }
     ]

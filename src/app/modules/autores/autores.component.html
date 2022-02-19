@@ -81,10 +81,10 @@
                 <span class="p-column-title">Acción</span>
                     <div class="row">
                         <div class="col-md-6">
-                            <button pButton pRipple label="Editar" icon="pi pi-pencil" [routerLink]="['/editlibros/',libros.id]"></button>
+                            <button pButton pRipple label="Editar" icon="pi pi-pencil" class="p-button-warning" [routerLink]="['/editlibros/',libros.id]"></button>
                         </div>
                         <div class="col-md-6">
-                            <button pButton pRipple label="Borrar" (click)="openModal(libros.id)" icon="pi pi-trash"></button>
+                            <button pButton pRipple label="Borrar" class="p-button-danger" (click)="openModal(libros.id)" icon="pi pi-trash"></button>
                         </div>
                     </div>
             </td>

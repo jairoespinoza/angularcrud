@@ -1,0 +1,25 @@
+.menu .p-button{
+    background-color: #606f86;
+    border-color: #606f86;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.menu .p-button:hover{
+    background-color: #606f86;
+    border-color: #606f86;
+}
+
+.letra{
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.p-sidebar{
+    background-color: #606f86;
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.menu-items:hover{
+    background-color: #4f5a6c;
+}

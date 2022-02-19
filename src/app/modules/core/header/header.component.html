@@ -1,18 +1,19 @@
-<p-sidebar [(visible)]="visibleSidebar1" [baseZIndex]="10000">
+<p-sidebar [(visible)]="visibleSidebar1" [baseZIndex]="10000" [showCloseIcon]="false">
     <h2>Menu</h2>
     <div class="d-flex flex-column">
-        <div class="p-2" [routerLink]="['']" style="cursor: pointer;">Autores</div>
-        <div class="p-2" [routerLink]="['/libros']" style="cursor: pointer;">Libros</div>
-        <div class="p-2" [routerLink]="['/dashboard']" style="cursor: pointer;">Dashboard</div>
+        <div class="p-2 menu-items" [routerLink]="['']" style="cursor: pointer;">Autores</div>
+        <div class="p-2 menu-items" [routerLink]="['/libros']" style="cursor: pointer;">Libros</div>
+        <div class="p-2 menu-items" [routerLink]="['/dashboard']" style="cursor: pointer;">Dashboard</div>
     </div>
 </p-sidebar>
 
-<div style="background-color: aquamarine; padding: 10px;">
+<div style="background-color: #606f86; padding: 10px;">
     <div class="row">
         <div class="col-md-6" style="text-align: left;">
-            <p-button type="button"  class="mr-2" (click)="visibleSidebar1 = true" label="Menu"></p-button>    
+            
+            <p-button type="button" icon="pi pi-bars" class="mr-2 menu" (click)="visibleSidebar1 = true" label="Menu"></p-button>    
         </div>
-        <div class="col-md-6" style="text-align: right;">
+        <div class="col-md-6 letra" style="text-align: right; padding-top: 7px;">
             Julio Jairo Cumpa Espinoza
         </div>
     </div>

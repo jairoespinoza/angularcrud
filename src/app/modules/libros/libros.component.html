@@ -3,29 +3,29 @@
     <p-card header="{{titulo}}" [style]="{'width': '30rem', 'margin-bottom': '2em'}">
         <div class="d-flex flex-column" [formGroup]="createLibro">
             <div class="p-2">
-                <label>Título</label><br/>
+                <label style="font-family: Arial, Helvetica, sans-serif;">Título</label><br/>
                 <input type="text" pInputText formControlName="titulo" />
             </div>
             <div class="p-2">
-                <label>Descripción</label><br/>
+                <label style="font-family: Arial, Helvetica, sans-serif;">Descripción</label><br/>
                 <textarea rows="5" cols="30" pInputTextarea [autoResize]="autoResize" formControlName="descripcion"></textarea>
             </div>
             <div class="d-flex flex-row">
                 <div class="p-2">
-                    <label>Autor</label><br/>
+                    <label style="font-family: Arial, Helvetica, sans-serif;">Autor</label><br/>
                     <p-autoComplete  formControlName="autor" [showEmptyMessage]="true" [suggestions]="filteredCountries" (completeMethod)="filterCountry($event)" field="nombre" [minLength]="1"></p-autoComplete>
                 </div>
-                <div class="p-2">
+                <div class="p-2 boton">
                     <p-button label="Nuevo Autor" (click)="showDialog()"></p-button>
                 </div>
             </div>
             <div class="d-flex flex-row">
                 <div class="p-2">
-                    <label>Publicado</label><br/>
+                    <label style="font-family: Arial, Helvetica, sans-serif;">Publicado</label><br/>
                     <p-checkbox [binary]="true" inputId="binary" formControlName="publicado"></p-checkbox>
                 </div>
                 <div class="p-2">
-                    <label>Año</label><br/>
+                    <label style="font-family: Arial, Helvetica, sans-serif;">Año</label><br/>
                     <input type="text" pInputText formControlName="anio"/>
                 </div>
             </div>
