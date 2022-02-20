@@ -117,6 +117,19 @@ export class LibrosComponent implements OnInit {
     })
  }
 
+ lstAutoresId : any;
+ getAutoresId() {
+  this._firebaseservice.getAutores().subscribe(res =>{
+    this.lstAutoresId = []
+   res.forEach(( element : any) => {
+     this.lstAutoresId.push({
+       id: element.payload.doc.id,
+       ...element.payload.doc.data()
+     })
+   });
+  })
+}
+
 
  filteredCountries: any[] = [];
  filterCountry(event :any) {
@@ -138,18 +151,35 @@ cargarLibro() {
   
   if(this.id !== null){
     this.titulo = "Editar Libro"
+    this.getAutoresId();
     this._firebaseservice.getLibro(this.id).subscribe(data=>{
       console.log(data.payload.data())
+
+      debugger
+      let idautor = data.payload.data()['idautor']
+      let objautor
+      for (let index = 0; index < this.lstAutoresId.length; index++) {
+        debugger
+        if(this.lstAutoresId[index].id === idautor)
+        {
+          objautor = this.lstAutoresId[index];
+        }
+        
+      }
+
       this.createLibro.setValue({
         anio: data.payload.data()['anio'],
         descripcion: data.payload.data()['descripcion'],
         publicado: data.payload.data()['publicado'],
         titulo: data.payload.data()['titulo'],
         fecharegistro : '',
-        autor: ''
+        autor: objautor
       })
     })
   }
+
+
+
 }
 
 agregarxeditarLibro(){
